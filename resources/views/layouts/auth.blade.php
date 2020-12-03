@@ -20,10 +20,14 @@
   </head>
 
   <body>
+    <!-- Navbar  -->
+    @include('includes.navbar-auth')
+    <!-- End Navbar  -->
 
     <!-- Page Content -->
     @yield('page-content')
     <!-- End Page Content -->
+    
 
     <!-- Footer  -->
     @include('includes.footer')

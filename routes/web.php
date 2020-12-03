@@ -13,13 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//STORE
+Route::get('/', 'HomeController@index')->name('home');
+Route::get('/categories', 'CategoryController@index')->name('categories');
+Route::get('/product-details', 'ProductDetailsController@index')->name('product-details');
+Route::get('/cart', 'CartController@index')->name('cart');
+Route::get('/success', 'CartController@success')->name('checkout.success');
 
-Route::get('/debug-sentry', function () {
-    throw new Exception('My first Sentry error!');
-});
+//END STORE
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/register/success', 'Auth\RegisterController@success')->name('register.success');
