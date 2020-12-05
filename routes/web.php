@@ -21,21 +21,41 @@ Route::get('/cart', 'CartController@index')->name('cart');
 Route::get('/success', 'CartController@success')->name('checkout.success');
 //END ROUTE STORE
 
+//ROUTE SELLER
+Route::group(['prefix' => 'mystore', 'namespace' => 'Seller'], function () {
+    Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+
+    Route::get('/products', 'ProductController@index')->name('products');
+    Route::get('/products/detail', 'ProductController@detail')->name('products.detail');
+    Route::get('/products/add', 'ProductController@add')->name('products.add');
+
+    Route::get('/transaction', 'TransactionController@index')->name('transaction');
+    Route::get('/transaction/detail', 'TransactionController@detail')->name('transaction.detail');
+
+    Route::get('/settings', 'SettingController@index')->name('settings');
+
+    Route::get('/account', 'AccountController@index')->name('account');
+});
+//END ROUTE SELLER
+
+
 //ROUTE ADMIN
-Route::group(['prefix' => 'admin'], function () {
-    Route::get('/dashboard', 'Admin\DashboardController@index')->name('dashboard');
+// 'middleware' => ['auth','admin'],
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
+    Route::get('/dashboard', 'DashboardController@index')->name('admin-dashboard');
 
-    Route::get('/products', 'Admin\ProductController@index')->name('products');
-    Route::get('/products/detail', 'Admin\ProductController@detail')->name('products.detail');
-    Route::get('/products/add', 'Admin\ProductController@add')->name('products.add');
+    Route::get('/products', 'ProductController@index')->name('products');
+    Route::get('/products/detail', 'ProductController@detail')->name('products.detail');
+    Route::get('/products/add', 'ProductController@add')->name('products.add');
 
-    Route::get('/transaction', 'Admin\TransactionController@index')->name('transaction');
-    Route::get('/transaction/detail', 'Admin\TransactionController@detail')->name('transaction.detail');
+    Route::get('/transaction', 'TransactionController@index')->name('transaction');
+    Route::get('/transaction/detail', 'TransactionController@detail')->name('transaction.detail');
 
-    Route::get('/settings', 'Admin\SettingController@index')->name('settings');
+    Route::get('/settings', 'SettingController@index')->name('settings');
 
-    Route::get('/account', 'Admin\AccountController@index')->name('account');
+    Route::get('/account', 'AccountController@index')->name('account');
 });
 //END ROUTE ADMIN
+
 Auth::routes();
 Route::get('/register/success', 'Auth\RegisterController@success')->name('register.success');

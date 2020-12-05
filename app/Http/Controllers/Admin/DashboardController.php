@@ -2,13 +2,23 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\User;
+use App\Transaction;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        return view('pages.admin.dashboard');
+        $customer = User::where('roles', 'user')->count();
+        $revenue = Transaction::where('transaction_status', 'SUCCESS')->sum('total_price');
+        $transaction = User::count();
+
+        return view('pages.admin.dashboard',[
+            'customer' => $customer,
+            'revenue' => $revenue,
+            'transaction' => $transaction
+        ]);
     }
 }

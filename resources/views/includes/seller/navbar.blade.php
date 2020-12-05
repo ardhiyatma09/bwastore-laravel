@@ -19,12 +19,23 @@
               <a href="#" class="dropdown-item">Logout</a>
             </div>
           </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link d-inline-block mt-2">
+              <img src="{{url('template/images/cart-filled.svg')}}" alt="">
+              <div class="cart-badge">3</div>
+            </a>
+          </li>
         </ul>
         <!--Mobile Menu-->
         <ul class="navbar-nav d-block d-lg-none">
           <li class="nav-item">
             <a href="#" class="nav-link">
               Hi, Angga
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              Cart
             </a>
           </li>
         </ul>

@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.seller')
 
 @section('title')
     Dashboard Admin
@@ -20,7 +20,7 @@
                   Customer
                 </div>
                 <div class="dashboard-card-subtitle">
-                  {{$customer}}
+                  15,209
                 </div>
               </div>
             </div>
@@ -32,7 +32,7 @@
                   Revenue
                 </div>
                 <div class="dashboard-card-subtitle">
-                  ${{$revenue}}
+                  $931,290
                 </div>
               </div>
             </div>
@@ -44,7 +44,7 @@
                   Transaction
                 </div>
                 <div class="dashboard-card-subtitle">
-                  {{$transaction}}
+                  22,409,399
                 </div>
               </div>
             </div>
