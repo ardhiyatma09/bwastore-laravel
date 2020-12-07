@@ -43,17 +43,7 @@ Route::group(['prefix' => 'mystore', 'namespace' => 'Seller'], function () {
 // 'middleware' => ['auth','admin'],
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
     Route::get('/dashboard', 'DashboardController@index')->name('admin-dashboard');
-
-    Route::get('/products', 'ProductController@index')->name('products');
-    Route::get('/products/detail', 'ProductController@detail')->name('products.detail');
-    Route::get('/products/add', 'ProductController@add')->name('products.add');
-
-    Route::get('/transaction', 'TransactionController@index')->name('transaction');
-    Route::get('/transaction/detail', 'TransactionController@detail')->name('transaction.detail');
-
-    Route::get('/settings', 'SettingController@index')->name('settings');
-
-    Route::get('/account', 'AccountController@index')->name('account');
+    Route::resource('category', 'CategoryController');
 });
 //END ROUTE ADMIN
 

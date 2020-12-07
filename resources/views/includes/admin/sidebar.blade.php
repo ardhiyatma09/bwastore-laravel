@@ -3,19 +3,19 @@
       <img src="{{url('template/images/logo-admin.svg')}}" alt="" class="my-4" width="95">
     </div>
     <div class="list-group list-group-flush">
-      <a href="{{route('admin-dashboard')}}" class="list-group-item list-group-item-action @if(Request::segment(2) == 'dashboard') active @endif">
+      <a href="{{route('admin-dashboard')}}" class="list-group-item list-group-item-action {{(Request::segment(2) == 'dashboard') ? 'active' : ''}}">
         Dashboard
       </a>
-      <a href="{{route('products')}}" class="list-group-item list-group-item-action @if(Request::segment(2) == 'products') active @endif">
+      <a href="" class="list-group-item list-group-item-action {{(Request::segment(2) == 'dashboard') ? 'active' : ''}}">
         Products
       </a>
-      <a href="{{route('transaction')}}" class="list-group-item list-group-item-action @if(Request::segment(2) == 'transaction') active @endif">
+      <a href="{{route('category.index')}}" class="list-group-item list-group-item-action {{(Request::segment(2) == 'category') ? 'active' : ''}}">
         Categories
       </a>
-      <a href="{{route('settings')}}" class="list-group-item list-group-item-action @if(Request::segment(2) == 'settings') active @endif">
+      <a href="" class="list-group-item list-group-item-action {{(Request::segment(2) == 'dashboard') ? 'active' : ''}}">
         Transactions
       </a>
-      <a href="{{route('settings')}}" class="list-group-item list-group-item-action @if(Request::segment(2) == 'settings') active @endif">
+      <a href="" class="list-group-item list-group-item-action {{(Request::segment(2) == 'dashboard') ? 'active' : ''}}">
         Users
       </a>
       
