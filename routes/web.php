@@ -44,6 +44,7 @@ Route::group(['prefix' => 'mystore', 'namespace' => 'Seller'], function () {
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
     Route::get('/dashboard', 'DashboardController@index')->name('admin-dashboard');
     Route::resource('category', 'CategoryController');
+    Route::resource('user', 'UserController');
 });
 //END ROUTE ADMIN
 
