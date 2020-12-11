@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\User;
 use App\Product;
-use App\Category;
-use Illuminate\Support\Str;
+use App\ProductGallery;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
-use App\Http\Requests\Admin\ProductRequest;
+use App\Http\Requests\Admin\ProductGalleryRequest;
 
-class ProductController extends Controller
+class ProductGalleryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,7 +20,7 @@ class ProductController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $query = Product::with(['user','category']);
+            $query = ProductGallery::with(['product']);
 
             return Datatables::of($query)
                 ->addColumn('action', function ($item) {
@@ -36,10 +35,7 @@ class ProductController extends Controller
                                         Aksi
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="action' .  $item->id . '">
-                                    <a class="dropdown-item" href="' . route('product.edit', $item->id) . '">
-                                        Sunting
-                                    </a>
-                                    <form action="' . route('product.destroy', $item->id) . '" method="POST">
+                                    <form action="' . route('product-gallery.destroy', $item->id) . '" method="POST">
                                         ' . method_field('delete') . csrf_field() . '
                                         <button type="submit" class="dropdown-item text-danger">
                                             Hapus
@@ -49,11 +45,14 @@ class ProductController extends Controller
                             </div>
                     </div>';
                 })
-                ->rawColumns(['action'])
+                ->editColumn('photos', function($item){
+                    return $item->photos ? '<img src="'. Storage::url($item->photos) .'" style="max-height:80px;" />' : '';
+                })
+                ->rawColumns(['action','photos'])
                 ->make();
         }
 
-        return view('pages.admin.product.index');
+        return view('pages.admin.product-gallery.index');
     }
 
     /**
@@ -63,11 +62,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $users = User::all();
-        $categories = Category::all();
-        return view('pages.admin.product.create',[
-            'users' => $users,
-            'categories' => $categories
+        $products = Product::all();
+        return view('pages.admin.product-gallery.create',[
+            'products' => $products,
         ]);
     }
 
@@ -77,14 +74,15 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProductRequest $request)
+    public function store(ProductGalleryRequest $request)
     {
+        // dd($request);
         $data = $request->all();
+        $data['photos'] = $request->file('photos')->store('assets/product','public');
+    
+        ProductGallery::create($data);
 
-        $data['slug'] = Str::slug($request->name);
-        Product::create($data);
-
-        return redirect()->route('product.index');
+        return redirect()->route('product-gallery.index');
     }
 
     /**
@@ -106,13 +104,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        $users = User::all();
-        $categories = Category::all();
-        return view('pages.admin.product.edit',[
-            'item' => $product,
-            'users' => $users,
-            'categories' => $categories
-        ]);
+        //
     }
 
     /**
@@ -122,14 +114,9 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ProductRequest $request, Product $product)
+    public function update(ProductGalleryRequest $request, Product $product)
     {
-        $data = $request->all();
-        $data['slug'] = Str::slug($request->name);
-        
-        $product->update($data);
-
-        return redirect()->route('product.index');
+        //
     }
 
     /**
@@ -138,10 +125,11 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy(ProductGallery $productGallery)
     {
-        $product->delete();
+        Storage::disk('public')->delete($productGallery->photos);
+        $productGallery->delete();
 
-        return redirect()->route('product.index');
+        return redirect()->route('product-gallery.index');
     }
 }

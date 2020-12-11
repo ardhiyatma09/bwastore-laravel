@@ -6,8 +6,11 @@
       <a href="{{route('admin-dashboard')}}" class="list-group-item list-group-item-action {{(Request::segment(2) == 'dashboard') ? 'active' : ''}}">
         Dashboard
       </a>
-      <a href="" class="list-group-item list-group-item-action {{(Request::segment(2) == 'product') ? 'active' : ''}}">
+      <a href="{{route('product.index')}}" class="list-group-item list-group-item-action {{(Request::segment(2) == 'product') ? 'active' : ''}}">
         Products
+      </a>
+      <a href="{{route('product-gallery.index')}}" class="list-group-item list-group-item-action {{(Request::segment(2) == 'product-gallery') ? 'active' : ''}}">
+        Product Galleries
       </a>
       <a href="{{route('category.index')}}" class="list-group-item list-group-item-action {{(Request::segment(2) == 'category') ? 'active' : ''}}">
         Categories

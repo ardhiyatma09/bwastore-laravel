@@ -144,7 +144,6 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        Storage::disk('public')->delete($category->photo);
         $category->delete();
 
         return redirect()->route('category.index');
