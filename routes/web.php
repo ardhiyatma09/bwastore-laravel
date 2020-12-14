@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 //ROUTE STORE
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/categories', 'CategoryController@index')->name('categories');
-Route::get('/product-details', 'ProductDetailsController@index')->name('product-details');
+Route::get('/product-details/{slug}', 'ProductDetailsController@index')->name('product-details');
 Route::get('/cart', 'CartController@index')->name('cart');
 Route::get('/success', 'CartController@success')->name('checkout.success');
 //END ROUTE STORE
