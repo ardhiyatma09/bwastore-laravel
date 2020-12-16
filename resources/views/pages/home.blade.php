@@ -47,18 +47,22 @@
           @php
             $incrementCategory = 0    
           @endphp
-          @foreach ($categories as $category)
+          @forelse ($categories as $category)
           <div class="col-6 col-md-3 col-lg-2" data-aos="fade-up" data-aos-delay="{{$incrementCategory += 100}}">
             <a href="#" class="component-categories d-block">
               <div class="categories-image">
-                <img src="{{Storage::url($category->photo)}}" alt="" class="w-100">
+                <img src="{{($category->photo) ? Storage::url($category->photo) : 'https://via.placeholder.com/250/F4F4F4/000000/?text=Not Found'}}" alt="" class="w-100">
               </div>
               <p class="categories-text text-center">
                 {{$category->name}}
               </p>
             </a>
           </div>
-          @endforeach
+          @empty
+          <div class="col-12">
+            <h2 class="text-center" data-aos="fade-up" data-aos-delay="100">Data category not found</h2>
+          </div>
+          @endforelse
         </div>
       </div>
     </section>
@@ -73,17 +77,21 @@
           @php
             $incrementProduct = 0    
           @endphp
-          @foreach ($products as $product)
+          @forelse ($products as $product)
           <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="{{$incrementProduct += 100}}">
             <a href="{{route('product-details', $product->slug)}}" class="component-new-product d-block">
               <div class="new-product-thumbnail">
-                <div class="new-product-image" style="background-image: url('{{Storage::url($product->galleries->first()->photos)}}');"></div>
+                <div class="new-product-image" style="background-image: url('{{($product->galleries->first()) ? Storage::url($product->galleries->first()->photos) : 'https://via.placeholder.com/350/000000/FFFFFF/?text=Not Found Image' }}');"></div>
               </div>
               <div class="new-product-name">{{$product->name}}</div>
               <div class="new-product-price">Rp. {{$product->price}}</div>
             </a>
           </div>
-          @endforeach
+          @empty
+          <div class="col-12">
+            <h2 class="text-center" data-aos="fade-up" data-aos-delay="100">Data product not found</h2>
+          </div>
+          @endforelse
         </div>
       </div>
     </section>
