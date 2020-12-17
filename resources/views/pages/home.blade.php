@@ -49,7 +49,7 @@
           @endphp
           @forelse ($categories as $category)
           <div class="col-6 col-md-3 col-lg-2" data-aos="fade-up" data-aos-delay="{{$incrementCategory += 100}}">
-            <a href="#" class="component-categories d-block">
+            <a href="{{route('categories-details',$category->slug)}}" class="component-categories d-block">
               <div class="categories-image">
                 <img src="{{($category->photo) ? Storage::url($category->photo) : 'https://via.placeholder.com/250/F4F4F4/000000/?text=Not Found'}}" alt="" class="w-100">
               </div>
