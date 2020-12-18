@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light navbar-store fixed-top navbar-fixed-top" data-aos="fade-down">
     <div class="container">
-      <a href="#" class="navbar-brand">
+      <a href="{{route('home')}}" class="navbar-brand">
         <img src="{{url('template/images/logo.svg')}}" alt="">
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
@@ -8,13 +8,13 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
-            <a href="/index.html" class="nav-link">Home</a>
+          <li class="nav-item @if (Request::segment(1) == '') active @endif">
+            <a href="{{route('home')}}" class="nav-link">Home</a>
           </li>
-          <li class="nav-item">
-            <a href="/categories.html" class="nav-link">Categories</a>
+          <li class="nav-item @if (Request::segment(1) == 'categories') active @endif">
+            <a href="{{route('categories')}}" class="nav-link">Categories</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item @if (Request::segment(1) == 'reward') active @endif">
             <a href="#" class="nav-link">Rewards</a>
           </li>
         </ul>

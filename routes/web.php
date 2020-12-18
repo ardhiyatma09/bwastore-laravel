@@ -23,7 +23,7 @@ Route::get('/success', 'CartController@success')->name('checkout.success');
 //END ROUTE STORE
 
 //ROUTE SELLER
-Route::group(['prefix' => 'mystore', 'namespace' => 'Seller'], function () {
+Route::group(['prefix' => 'mystore', 'namespace' => 'Seller', 'middleware' => 'auth'], function () {
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
     Route::get('/products', 'ProductController@index')->name('products');

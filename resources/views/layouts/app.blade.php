@@ -21,12 +21,7 @@
 
   <body>
     <!-- Navbar  -->
-    @auth
-      @include('includes.navbar-authenticated')
-    @endauth
-    @guest
-      @include('includes.navbar')
-    @endguest
+    @include('includes.navbar')
     <!-- End Navbar  -->
 
     <!-- Page Content -->
