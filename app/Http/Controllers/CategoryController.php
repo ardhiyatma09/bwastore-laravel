@@ -18,7 +18,7 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function details(Request $request, $slug)
+    public function details($slug)
     {
         $categories = Category::all();
         $category = Category::where('slug', $slug)->firstOrFail();

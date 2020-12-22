@@ -18,8 +18,13 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/categories', 'CategoryController@index')->name('categories');
 Route::get('/categories/{slug}', 'CategoryController@details')->name('categories-details');
 Route::get('/product-details/{slug}', 'ProductDetailsController@index')->name('product-details');
-Route::get('/cart', 'CartController@index')->name('cart');
-Route::get('/success', 'CartController@success')->name('checkout.success');
+Route::post('/product-details/{id}', 'ProductDetailsController@add')->name('product-details.add');
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/cart', 'CartController@index')->name('cart');
+    Route::delete('/cart/{cart}/delete', 'CartController@delete')->name('delete-cart');
+    Route::get('/success', 'CartController@success')->name('checkout.success');
+});
 //END ROUTE STORE
 
 //ROUTE SELLER
