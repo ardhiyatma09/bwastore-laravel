@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//LOGIN ROUTE 
+Auth::routes();
+Route::get('/register/success', 'Auth\RegisterController@success')->name('register.success');
+//END LOGIN ROUTE
+
+
 //ROUTE STORE
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/categories', 'CategoryController@index')->name('categories');
@@ -23,9 +29,12 @@ Route::post('/product-details/{id}', 'ProductDetailsController@add')->name('prod
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/cart', 'CartController@index')->name('cart');
     Route::delete('/cart/{cart}/delete', 'CartController@delete')->name('delete-cart');
+    Route::post('/checkout', 'CheckoutController@process')->name('checkout');
+    Route::post('/checkout/callback', 'CheckoutController@callback')->name('midtrans-callback');
     Route::get('/success', 'CartController@success')->name('checkout.success');
 });
 //END ROUTE STORE
+
 
 //ROUTE SELLER
 Route::group(['prefix' => 'mystore', 'namespace' => 'Seller', 'middleware' => 'auth'], function () {
@@ -43,18 +52,3 @@ Route::group(['prefix' => 'mystore', 'namespace' => 'Seller', 'middleware' => 'a
     Route::get('/account', 'AccountController@index')->name('account');
 });
 //END ROUTE SELLER
-
-
-//ROUTE ADMIN
-// 'middleware' => ['auth','admin'],
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
-    Route::get('/dashboard', 'DashboardController@index')->name('admin-dashboard');
-    Route::resource('category', 'CategoryController');
-    Route::resource('user', 'UserController');
-    Route::resource('product', 'ProductController');
-    Route::resource('product-gallery', 'ProductGalleryController');
-});
-//END ROUTE ADMIN
-
-Auth::routes();
-Route::get('/register/success', 'Auth\RegisterController@success')->name('register.success');
