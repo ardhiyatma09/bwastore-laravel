@@ -10,13 +10,17 @@
           <li class="nav-item dropdown">
             <a href="#" class="nav-link" id="navbarDropdown" role="button" data-toggle="dropdown">
               <img src="{{url('template/images/account_user.png')}}" class="rounded-circle mr-2 profile-picture" alt="">
-              Hi, Angga
+              Hi, {{Auth::user()->name}}
             </a>
             <div class="dropdown-menu">
-              <a href="#" class="dropdown-item">Dashboard</a>
-              <a href="#" class="dropdown-item">Settings</a>
+              <a href="{{route('dashboard')}}" class="dropdown-item">Dashboard</a>
+              <a href="{{route('settings')}}" class="dropdown-item">Settings</a>
               <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item">Logout</a>
+              <a href="{{ route('logout') }}" class="dropdown-item"
+                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+              @csrf
+              </form>
             </div>
           </li>
           <li class="nav-item">

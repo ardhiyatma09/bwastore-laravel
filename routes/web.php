@@ -41,11 +41,16 @@ Route::group(['prefix' => 'mystore', 'namespace' => 'Seller', 'middleware' => 'a
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
     Route::get('/products', 'ProductController@index')->name('products');
-    Route::get('/products/detail', 'ProductController@detail')->name('products.detail');
+    Route::get('/products/detail/{id}', 'ProductController@detail')->name('products.detail');
     Route::get('/products/add', 'ProductController@add')->name('products.add');
+    Route::post('/products/store', 'ProductController@store')->name('products.store');
+    Route::put('/products/update/{product}', 'ProductController@update')->name('products.update');
+
+    Route::post('/products/gallery/upload', 'ProductController@uploadGallery')->name('products.upload-gallery');
+    Route::delete('/products/gallery/delete/{productGallery}', 'ProductController@deleteGallery')->name('products.delete-gallery');
 
     Route::get('/transaction', 'TransactionController@index')->name('transaction');
-    Route::get('/transaction/detail', 'TransactionController@detail')->name('transaction.detail');
+    Route::get('/transaction/detail/{id}', 'TransactionController@detail')->name('transaction.detail');
 
     Route::get('/settings', 'SettingController@index')->name('settings');
 

@@ -37,7 +37,7 @@
           </a>
           <div class="dropdown-menu">
             <a href="{{route('dashboard')}}" class="dropdown-item">Dashboard</a>
-            <a href="#" class="dropdown-item">Settings</a>
+            <a href="{{route('settings')}}" class="dropdown-item">Settings</a>
             <div class="dropdown-divider"></div>
             <a href="{{ route('logout') }}" class="dropdown-item"
               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>

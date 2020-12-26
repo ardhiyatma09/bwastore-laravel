@@ -24,7 +24,7 @@
             </ul>
             <div class="tab-content" id="pills-tabContent">
               <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                <a href="{{route('transaction.detail')}}" class="card card-list d-block">
+                <a href="#" class="card card-list d-block">
                   <div class="card-body">
                     <div class="row">
                       <div class="col-md-1">

@@ -14,42 +14,56 @@
       <div class="dashboard-content">
         <div class="row">
           <div class="col-12">
-            <form action="">
+            @if ($errors->any())
+              <div class="alert alert-danger">
+                <ul>
+                  @foreach ($errors->all() as $error)
+                    <li>{{$error}}</li>
+                  @endforeach
+                </ul>
+              </div>
+            @endif
+            <form action="{{route('products.store')}}" method="POST" enctype="multipart/form-data">
+              @csrf
+              <input type="hidden" name="users_id" value="{{Auth::user()->id}}">
               <div class="card">
                 <div class="card-body">
                   <div class="row">
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="">Product Name</label>
-                        <input type="text" name="productname" class="form-control" value="La Casa De Papel">
+                        <input type="text" name="name" class="form-control">
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="">Price</label>
-                        <input type="number" name="price" class="form-control" value="200">
+                        <input type="number" name="price" class="form-control">
                       </div>
                     </div>
                     <div class="col-md-12">
                       <div class="form-group">
                         <label for="">Category</label>
-                        <select name="category" class="form-control">
-                          <option value="">Furniture</option>
+                        <select name="categories_id" class="form-control">
+                          <option value="" disabled selected hidden>Select Category...</option>
+                          @foreach ($categories as $category)
+                          <option value="{{$category->id}}">{{$category->name}}</option>
+                          @endforeach
                         </select>
                       </div>
                     </div>
                     <div class="col-md-12">
                       <div class="form-group">
                         <label for="description">Description</label>
-                        <textarea name="editor1">
-                          The Nike Air Max 720 SE goes bigger than ever before with Nike's tallest Air unit yet for unimaginable, all-day comfort. There's super breathable fabrics on the upper, while colours add a modern edge. Bring the past into the future with the Nike Air Max 2090, a bold look inspired by the DNA of the iconic Air Max 90. Brand-new Nike Air cushioning
+                        <textarea name="description" id="editor1">
+                          
                         </textarea>
                       </div>
                     </div>
                     <div class="col-md-12">
                       <div class="form-group">
-                        <label for="thumbnails">Thumbnails</label>
-                        <input type="file" multiple="" class="form-control pt-1" id="thumbnails" aria-describedby="thumbnails" name="thumbnails">
+                        <label for="photo">Photos</label>
+                        <input type="file" multiple="" class="form-control pt-1" name="photo">
                         <small class="text-muted">
                           Kamu dapat memilih lebih dari satu file
                         </small>
