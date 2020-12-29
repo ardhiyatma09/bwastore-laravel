@@ -14,66 +14,69 @@
       <div class="dashboard-content">
         <div class="row">
           <div class="col-12">
-            <form action="">
+            <form action="{{route('redirect','account')}}" method="POST" enctype="multipart/form-data" id="locations">
+              @csrf
               <div class="card">
                 <div class="card-body">
                   <div class="row">
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label for="">Store Name</label>
-                        <input type="text" name="storename" class="form-control" value="La Casa De Papel">
+                        <label for="">Your Name</label>
+                        <input type="text" name="name" class="form-control" value="{{$user->name}}">
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label for="">Store Name</label>
-                        <input type="text" name="storename" class="form-control" value="La Casa De Papel">
+                        <label for="">Your Email</label>
+                        <input type="email" name="email" class="form-control" value="{{$user->email}}">
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label for="">Store Name</label>
-                        <input type="text" name="storename" class="form-control" value="La Casa De Papel">
+                        <label for="">Address 1</label>
+                        <input type="text" name="address_one" class="form-control" value="{{$user->address_one}}">
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label for="">Store Name</label>
-                        <input type="text" name="storename" class="form-control" value="La Casa De Papel">
+                        <label for="">Address 2</label>
+                        <input type="text" name="address_two" class="form-control" value="{{$user->address_two}}">
                       </div>
                     </div>
                     <div class="col-md-4">
                       <div class="form-group">
-                        <label for="">Category</label>
-                        <select name="category" class="form-control">
-                          <option value="">Furniture</option>
+                        <label for="provinces_id">Province</label>
+                        <select name="provinces_id" id="provinces_id" class="form-control" v-if="provinces" v-model="provinces_id">
+                          <option v-for="province in provinces" :value="province.id">@{{province.name}}</option>
                         </select>
+                        <select v-else class="form-control"></select>
                       </div>
                     </div>
                     <div class="col-md-4">
                       <div class="form-group">
-                        <label for="">Category</label>
-                        <select name="category" class="form-control">
-                          <option value="">Furniture</option>
+                        <label for="regencies_id">City</label>
+                        <select name="regencies_id" id="regencies_id" class="form-control" v-if="regencies" v-model="regencies_id">
+                          <option v-for="regency in regencies" :value="regency.id">@{{regency.name}}</option>
                         </select>
+                        <select v-else class="form-control"></select>
                       </div>
                     </div>
                     <div class="col-md-4">
                       <div class="form-group">
-                        <label for="">Store Name</label>
-                        <input type="text" name="storename" class="form-control" value="La Casa De Papel">
+                        <label for="">Zip Code</label>
+                        <input type="number" name="zip_code" class="form-control" value="{{$user->zip_code}}">
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label for="">Store Name</label>
-                        <input type="text" name="storename" class="form-control" value="La Casa De Papel">
+                        <label for="">Country</label>
+                        <input type="text" name="country" class="form-control" value="{{$user->country}}">
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label for="">Store Name</label>
-                        <input type="text" name="storename" class="form-control" value="La Casa De Papel">
+                        <label for="">Phone Number</label>
+                        <input type="text" name="phone_number" class="form-control" value="{{$user->phone_number}}">
                       </div>
                     </div>
                   </div>
@@ -91,3 +94,45 @@
     </div>
 </div>
 @endsection
+
+@push('addon-script')
+<script src="{{url('template/vendor/vue/vue.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+  let locations = new Vue({
+    el: "#locations",
+    mounted() {
+      AOS.init();
+      this.getProvincesData();
+    },
+    data: {
+      provinces : null,
+      regencies : null,
+      provinces_id : null,
+      regencies_id : null
+    },
+    methods: {
+      getProvincesData(){
+        var self = this;
+        axios.get('{{route('api-provinces')}}')
+          .then(function(response) {
+            self.provinces = response.data;
+          })
+      },
+      getRegenciesData(){
+        var self = this;
+        axios.get('{{url('api/regencies')}}/' + self.provinces_id)
+          .then(function(response) {
+            self.regencies = response.data;
+          })
+      },
+    },
+    watch:{
+      provinces_id: function(val, oldVal){
+        this.regencies_id = null;
+        this.getRegenciesData();
+      }
+    }
+  })
+</script>
+@endpush

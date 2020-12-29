@@ -53,7 +53,7 @@ Route::group(['prefix' => 'mystore', 'namespace' => 'Seller', 'middleware' => 'a
     Route::get('/transaction/detail/{id}', 'TransactionController@detail')->name('transaction.detail');
 
     Route::get('/settings', 'SettingController@index')->name('settings');
-
     Route::get('/account', 'AccountController@index')->name('account');
+    Route::post('/update/{redirect}', 'AccountController@update')->name('redirect');
 });
 //END ROUTE SELLER
