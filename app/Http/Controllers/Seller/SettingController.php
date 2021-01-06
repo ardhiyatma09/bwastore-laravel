@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class SettingController extends Controller
-{
+{ 
     public function index()
     {
         $user = Auth::user();

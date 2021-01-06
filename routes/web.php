@@ -51,6 +51,7 @@ Route::group(['prefix' => 'mystore', 'namespace' => 'Seller', 'middleware' => 'a
 
     Route::get('/transaction', 'TransactionController@index')->name('transaction');
     Route::get('/transaction/detail/{id}', 'TransactionController@detail')->name('transaction.detail');
+    Route::post('/transaction/detail/{id}', 'TransactionController@update')->name('transaction.update');
 
     Route::get('/settings', 'SettingController@index')->name('settings');
     Route::get('/account', 'AccountController@index')->name('account');

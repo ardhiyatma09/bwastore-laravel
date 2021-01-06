@@ -24,20 +24,21 @@
             </ul>
             <div class="tab-content" id="pills-tabContent">
               <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                @foreach ($sellTransactions as $transaction)
                 <a href="#" class="card card-list d-block">
                   <div class="card-body">
                     <div class="row">
                       <div class="col-md-1">
-                        <img src="{{url('template/images/dashboard-content1.png')}}" alt="">
+                        <img src="{{Storage::url($transaction->product->galleries->first()->photos ?? '')}}" class="w-50">
                       </div>
                       <div class="col-md-4">
-                        Shirup Marjan
+                        {{$transaction->product->name}}
                       </div>
                       <div class="col-md-3">
-                        Angga Rizksy
+                        {{$transaction->product->user->store_name}}
                       </div>
                       <div class="col-md-3">
-                        12 Januari 2020
+                        {{date('d-m-Y', strtotime($transaction->created_at))}}
                       </div>
                       <div class="col-md-1 d-none d-md-block">
                         <img src="{{url('template/images/arrow-right.svg')}}" alt="">
@@ -45,66 +46,24 @@
                     </div>
                   </div>
                 </a>
-
-                <a href="" class="card card-list d-block">
-                  <div class="card-body">
-                    <div class="row">
-                      <div class="col-md-1">
-                        <img src="{{url('template/images/dashboard-content3.png')}}" alt="">
-                      </div>
-                      <div class="col-md-4">
-                        Sofa Lembut
-                      </div>
-                      <div class="col-md-3">
-                        John Doe
-                      </div>
-                      <div class="col-md-3">
-                        31 Mei 2020
-                      </div>
-                      <div class="col-md-1 d-none d-md-block">
-                        <img src="{{url('template/images/arrow-right.svg')}}" alt="">
-                      </div>
-                    </div>
-                  </div>
-                </a>
-
-                <a href="" class="card card-list d-block">
-                  <div class="card-body">
-                    <div class="row">
-                      <div class="col-md-1">
-                        <img src="{{url('template/images/dashboard-content2.png')}}" alt="">
-                      </div>
-                      <div class="col-md-4">
-                        Lebron X
-                      </div>
-                      <div class="col-md-3">
-                        Ardhiyatma R
-                      </div>
-                      <div class="col-md-3">
-                        24 Maret 2020
-                      </div>
-                      <div class="col-md-1 d-none d-md-block">
-                        <img src="{{url('template/images/arrow-right.svg')}}" alt="">
-                      </div>
-                    </div>
-                  </div>
-                </a>
+                @endforeach
               </div>
               <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                <a href="" class="card card-list d-block">
+                @foreach ($buyTransactions  as $transaction)
+                <a href="{{route('transaction.detail',$transaction->id)}}" class="card card-list d-block">
                   <div class="card-body">
                     <div class="row">
                       <div class="col-md-1">
-                        <img src="{{url('template/images/dashboard-content1.png')}}" alt="">
+                        <img src="{{Storage::url($transaction->product->galleries->first()->photos ?? '')}}" class="w-50">
                       </div>
                       <div class="col-md-4">
-                        Shirup Marjan
+                        {{$transaction->product->name}}
                       </div>
                       <div class="col-md-3">
-                        Angga Rizksy
+                        {{$transaction->product->user->store_name}}
                       </div>
                       <div class="col-md-3">
-                        12 Januari 2020
+                        {{date('d-m-Y', strtotime($transaction->created_at))}}
                       </div>
                       <div class="col-md-1 d-none d-md-block">
                         <img src="{{url('template/images/arrow-right.svg')}}" alt="">
@@ -112,6 +71,7 @@
                     </div>
                   </div>
                 </a>
+                @endforeach
               </div>
             </div>
           </div>
